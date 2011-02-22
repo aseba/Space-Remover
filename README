@@ -1,0 +1,3 @@
+Small bash script that removes spaces from filenames of a directory and replaces them with an underscore
+
+Usage: ./spaceremover {path_to_directory}

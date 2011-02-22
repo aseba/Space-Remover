@@ -1,0 +1,29 @@
+#!/bin/bash
+if [ -n "$1" ]
+then
+  if [ -d "$1" ] 
+  then
+    cd "$1"
+  else
+    echo invalid directory
+    exit
+  fi
+fi
+
+for i in *
+do
+  OLDNAME="$i"
+  NEWNAME=`echo "$i" | tr ' ' '_' | tr A-Z a-z | sed s/_-_/-/g`
+  if [ "$NEWNAME" != "$OLDNAME" ]
+  then
+    TMPNAME="$i"_TMP 
+    echo ""
+    mv -v -- "$OLDNAME" "$TMPNAME"
+    mv -v -- "$TMPNAME" "$NEWNAME"
+  fi
+  if [ -d "$NEWNAME" ] 
+  then
+    echo Recursing lowercase for directory "$NEWNAME"
+    $0 "$NEWNAME"
+  fi
+done
